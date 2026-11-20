@@ -1,0 +1,6 @@
+{
+  "name": "Genjutsu Game Arena",
+  "description": "Play high-end games without a high-end gaming PC powered by cloud GPUs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

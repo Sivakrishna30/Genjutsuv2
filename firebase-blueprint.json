@@ -1,0 +1,158 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Public and private information about a user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The user's Firebase Auth UID."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address."
+        },
+        "username": {
+          "type": "string",
+          "description": "The user's chosen or Google-derived gamer tag."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's full display name."
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "The user's avatar image URL."
+        },
+        "subscriptionTier": {
+          "type": "string",
+          "enum": ["none", "hourly", "monthly", "yearly"],
+          "description": "The user's active subscription tier."
+        },
+        "steamId": {
+          "type": "string",
+          "description": "The user's linked Steam ID64 or vanity ID."
+        },
+        "steamUsername": {
+          "type": "string",
+          "description": "The user's Steam persona / community name."
+        },
+        "steamProfileUrl": {
+          "type": "string",
+          "description": "The public Steam community profile URL."
+        },
+        "steamAvatar": {
+          "type": "string",
+          "description": "The Steam avatar image URL."
+        },
+        "steamLinkedAt": {
+          "type": "string",
+          "description": "ISO timestamp when the Steam account was linked."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of account creation."
+        }
+      },
+      "required": ["uid", "email", "username", "subscriptionTier"]
+    },
+    "Booking": {
+      "title": "Cloud Gaming Slot Booking",
+      "description": "A scheduled reservation for a cloud GPU session.",
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "description": "Unique identifier for the booking."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the user who booked the slot."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Email of the user."
+        },
+        "userName": {
+          "type": "string",
+          "description": "Name or username of the user."
+        },
+        "tier": {
+          "type": "string",
+          "enum": ["1080p", "1440p", "4K"],
+          "description": "Selected resolution and hardware tier."
+        },
+        "ratePerHour": {
+          "type": "number",
+          "description": "Hourly rate in INR."
+        },
+        "date": {
+          "type": "string",
+          "description": "Booking date in YYYY-MM-DD format."
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Start time in HH:mm 24-hour format."
+        },
+        "endTime": {
+          "type": "string",
+          "description": "End time in HH:mm 24-hour format."
+        },
+        "durationHours": {
+          "type": "number",
+          "description": "Number of booked hours."
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total price in INR."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["confirmed", "active", "completed", "cancelled"],
+          "description": "Current status of the reservation."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp when the booking was made."
+        }
+      },
+      "required": ["bookingId", "userId", "userEmail", "tier", "ratePerHour", "date", "startTime", "endTime", "durationHours", "totalAmount", "status"]
+    },
+    "GameLink": {
+      "title": "BYOG Game Link",
+      "description": "A game linked to the user's account from external platforms (Steam, Epic).",
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["steam", "epic", "gog", "xbox"]
+        },
+        "linkedAt": {
+          "type": "string"
+        }
+      },
+      "required": ["gameId", "title", "platform"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile document. Only readable/writable by the owner."
+    },
+    "users/{userId}/games/{gameId}": {
+      "schema": { "$ref": "#/entities/GameLink" },
+      "description": "Linked games in the user's library."
+    },
+    "users/{userId}/bookings/{bookingId}": {
+      "schema": { "$ref": "#/entities/Booking" },
+      "description": "User's reserved cloud gaming time slots."
+    }
+  }
+}

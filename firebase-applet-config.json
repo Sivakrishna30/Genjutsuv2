@@ -1,0 +1,10 @@
+{
+  "projectId": "genjutsu-game-arena",
+  "appId": "1:1424699454:web:c43dc5fe3b2b146fb1e16f",
+  "apiKey": "AIzaSyB9JVtq8O9Ae87nBm7wE3AIWBwcizhhs5I",
+  "authDomain": "genjutsu-game-arena.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "genjutsu-game-arena.firebasestorage.app",
+  "messagingSenderId": "1424699454",
+  "measurementId": "G-5DCX6J6EJF"
+}
